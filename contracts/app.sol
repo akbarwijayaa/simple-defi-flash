@@ -2,9 +2,14 @@
 pragma solidity ^0.8.26;
 
 contract DefiChanges {
+    address private owner;
     struct Collateral {
         uint256 amount;
         uint256 timestamp;
+    }
+
+    constructor(){
+        owner = msg.sender;
     }
 
     mapping(address => Collateral) public collaterals;
