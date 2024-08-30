@@ -6,6 +6,11 @@
 	"output": {
 		"abi": [
 			{
+				"inputs": [],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
 				"anonymous": false,
 				"inputs": [
 					{
@@ -56,6 +61,25 @@
 				"type": "event"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "LoanWithdraw",
+				"type": "event"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -63,11 +87,21 @@
 						"type": "address"
 					}
 				],
-				"name": "collaterals",
+				"name": "accounts",
 				"outputs": [
 					{
 						"internalType": "uint256",
 						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amountLoan",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "availableAmountLoan",
 						"type": "uint256"
 					},
 					{
@@ -84,6 +118,25 @@
 				"name": "depositCollateral",
 				"outputs": [],
 				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					}
+				],
+				"name": "getAvailableAmountLoan",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -122,6 +175,19 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "withdrawLoan",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -152,11 +218,11 @@
 	},
 	"sources": {
 		"contracts/app.sol": {
-			"keccak256": "0x98bf4163cf961621e68b669ef5a3d9df26d88cebcca7cc7202c31fc250c37104",
+			"keccak256": "0xaa018e091f308e6e3e93803f05bef56864dfaf7a13d92c542e2b47a037b95910",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://338c78d133b266da9d734f494a4d3c6570341295414d288e935d390766961337",
-				"dweb:/ipfs/QmcLfwhJL4GBfmubDDrQgThw8XpGhzz2fGfxAHNy8tmQu6"
+				"bzz-raw://0dde89d27b6ad22b399527f7dcade1ff061b508c27bf68102bab8f930b43b17d",
+				"dweb:/ipfs/QmP4fZQhJuTYqdhA5d6ABVFNCkdKCKk5VnvH5TUSVH8nUo"
 			]
 		}
 	},

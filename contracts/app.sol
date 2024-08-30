@@ -3,8 +3,12 @@ pragma solidity ^0.8.26;
 
 contract DefiChanges {
     address private owner;
-    struct Collateral {
+    uint256 private constant loanPercent = 5e17; // represent 0.5 in fixed
+
+    struct Account {
         uint256 amount;
+        uint256 amountLoan;
+        uint256 availableAmountLoan;
         uint256 timestamp;
     }
 
@@ -12,31 +16,33 @@ contract DefiChanges {
         owner = msg.sender;
     }
 
-    mapping(address => Collateral) public collaterals;
+    mapping(address => Account) public accounts;
     event CollateralDeposited(address indexed user, uint256 amount, uint256 timestamp);
     event CollateralWithdrawn(address indexed user, uint256 amount, uint256 timestamp);
+    event LoanWithdraw(address indexed user, uint256 amount);
 
     function depositCollateral() external payable {
         require(msg.value > 0, "Deposit amount must be greater than zero");
 
-        Collateral storage collateral = collaterals[msg.sender];
-        collateral.amount += msg.value;
-        collateral.timestamp = block.timestamp;
+        Account storage account = accounts[msg.sender];
+        account.amount += msg.value;
+        account.availableAmountLoan += (msg.value * loanPercent)/1e18;
+        account.timestamp = block.timestamp;
 
         emit CollateralDeposited(msg.sender, msg.value, block.timestamp);
     }
 
     function withdrawCollateral(uint256 withdrawAmount) external {
-        Collateral storage collateral = collaterals[msg.sender];
-        uint256 amount = collateral.amount;
+        Account storage account = accounts[msg.sender];
+        uint256 amount = account.amount;
         require(amount > 0, "No collateral to withdraw");
         require(withdrawAmount > 0, "Withdrawal amount must be greater than zero");
         require(withdrawAmount <= amount, "Insufficient collateral to withdraw this amount");
 
-        collateral.amount -= withdrawAmount;
+        account.amount -= withdrawAmount;
 
-        if (collateral.amount == 0) {
-            collateral.timestamp = 0;
+        if (account.amount == 0) {
+            account.timestamp = 0;
         }
 
         payable(msg.sender).transfer(withdrawAmount);
@@ -45,7 +51,27 @@ contract DefiChanges {
     }
 
     function getCollateral(address user) external view returns (uint256 amount, uint256 timestamp) {
-        Collateral storage collateral = collaterals[user];
-        return (collateral.amount, collateral.timestamp);
+        Account storage account = accounts[user];
+        return (account.amount, account.timestamp);
     }
+
+    function getAvailableAmountLoan(address user) external view returns (uint256 amount){
+        Account storage account = accounts[user];
+        return (account.availableAmountLoan);
+    }
+
+    function withdrawLoan(uint256 amount) external {
+        Account storage account = accounts[msg.sender];
+        require(account.availableAmountLoan > 0);
+
+        account.amount -= amount;
+        account.amountLoan += amount;
+        account.availableAmountLoan -= amount;
+
+        payable(msg.sender).transfer(amount);
+
+        emit LoanWithdraw(msg.sender, amount);
+    }
+
+
 }
