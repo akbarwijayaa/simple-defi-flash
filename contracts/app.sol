@@ -1,9 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
 
+import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interfaces/AggregatorV3Interface.sol";
+
 contract DefiChanges {
     address private owner;
     uint256 private constant loanPercent = 5e17; // represent 0.5 in fixed
+    AggregatorV3Interface internal dataFeed;
 
     struct Account {
         uint256 amount;
@@ -14,6 +17,9 @@ contract DefiChanges {
 
     constructor(){
         owner = msg.sender;
+        dataFeed = AggregatorV3Interface(
+            0x694AA1769357215DE4FAC081bf1f309aDC325306
+        );
     }
 
     mapping(address => Account) public accounts;
@@ -71,6 +77,18 @@ contract DefiChanges {
         payable(msg.sender).transfer(amount);
 
         emit LoanWithdraw(msg.sender, amount);
+    }
+
+    function getEthPrice() public view returns (int) {
+        (
+            /* uint80 roundID */,
+            int answer,
+            /*uint startedAt*/,
+            /*uint timeStamp*/,
+            /*uint80 answeredInRound*/
+        ) = dataFeed.latestRoundData();
+        int amount = answer / 1e8;
+        return amount;
     }
 
 
