@@ -93,5 +93,11 @@ contract DefiChanges {
         return uint(amount);
     }
 
+    function checkLoanPercentage(uint256 amount) public view returns (uint) {
+        Account storage account = accounts[msg.sender];
+        
+        uint perc = (amount * account.amount) / 100;
+        return perc;
+    }
 
 }

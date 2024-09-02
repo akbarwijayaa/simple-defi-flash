@@ -119,6 +119,25 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "checkLoanPercentage",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "depositCollateral",
 				"outputs": [],
@@ -244,11 +263,11 @@
 			]
 		},
 		"contracts/app.sol": {
-			"keccak256": "0x4f00198143b278c00d73122b5d7dd4b1b9e8bbf3174f7f4063836e6e6effc50a",
+			"keccak256": "0x96161b9c9f916b2a3c8a79c93f8728c7118bf1ccce956d275080f8d66d5b0ab7",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://bc4dfd01f0c0d9f43eae22996910aff7ca1dc0f38304add2c785355d0beae8e6",
-				"dweb:/ipfs/QmZAnv6WA92Jbmx3ndB3V82KTBghQm4bV8XfojdL2KZaax"
+				"bzz-raw://cc5cbd5157ee0305f5cff46c5259880bbfdd358511338dee4acb7d4f803fc71a",
+				"dweb:/ipfs/QmcDEbs4xjeYE7qXYMN548apwAW2mKgTRCwKpGhHB8jJDA"
 			]
 		}
 	},
