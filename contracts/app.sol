@@ -9,8 +9,9 @@ contract DefiChanges {
     AggregatorV3Interface internal dataFeed;
 
     struct Account {
-        uint256 amount;
+        uint256 amount; 
         uint256 amountLoan;
+        uint256 loanAtPrice;
         uint256 availableAmountLoan;
         uint256 timestamp;
     }
@@ -73,13 +74,14 @@ contract DefiChanges {
         account.amount -= amount;
         account.amountLoan += amount;
         account.availableAmountLoan -= amount;
+        account.loanAtPrice += getEthPrice();
 
         payable(msg.sender).transfer(amount);
 
         emit LoanWithdraw(msg.sender, amount);
     }
 
-    function getEthPrice() public view returns (int) {
+    function getEthPrice() public view returns (uint) {
         (
             /* uint80 roundID */,
             int answer,
@@ -88,7 +90,7 @@ contract DefiChanges {
             /*uint80 answeredInRound*/
         ) = dataFeed.latestRoundData();
         int amount = answer / 1e8;
-        return amount;
+        return uint(amount);
     }
 
 

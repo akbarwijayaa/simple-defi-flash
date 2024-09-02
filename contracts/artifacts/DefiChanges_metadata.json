@@ -101,6 +101,11 @@
 					},
 					{
 						"internalType": "uint256",
+						"name": "loanAtPrice",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
 						"name": "availableAmountLoan",
 						"type": "uint256"
 					},
@@ -168,9 +173,9 @@
 				"name": "getEthPrice",
 				"outputs": [
 					{
-						"internalType": "int256",
+						"internalType": "uint256",
 						"name": "",
-						"type": "int256"
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -239,11 +244,11 @@
 			]
 		},
 		"contracts/app.sol": {
-			"keccak256": "0x832d45cfd4d3a43268f9f062dc499da5cad6799e4065d0fb5fc067e38ae02683",
+			"keccak256": "0x4f00198143b278c00d73122b5d7dd4b1b9e8bbf3174f7f4063836e6e6effc50a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7021246f33cfa4bea7e13301790d5323d381da2132c7a3caa271cb0f6c7c3e33",
-				"dweb:/ipfs/QmYfbjCkc1BeGcnSvdREScN7ibDU9WjxUPo2KoJEy1aHc3"
+				"bzz-raw://bc4dfd01f0c0d9f43eae22996910aff7ca1dc0f38304add2c785355d0beae8e6",
+				"dweb:/ipfs/QmZAnv6WA92Jbmx3ndB3V82KTBghQm4bV8XfojdL2KZaax"
 			]
 		}
 	},
