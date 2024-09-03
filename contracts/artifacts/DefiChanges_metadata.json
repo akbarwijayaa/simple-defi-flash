@@ -119,19 +119,13 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					}
-				],
-				"name": "checkLoanPercentage",
+				"inputs": [],
+				"name": "checkHealthFactor",
 				"outputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "int256",
 						"name": "",
-						"type": "uint256"
+						"type": "int256"
 					}
 				],
 				"stateMutability": "view",
@@ -263,11 +257,11 @@
 			]
 		},
 		"contracts/app.sol": {
-			"keccak256": "0x96161b9c9f916b2a3c8a79c93f8728c7118bf1ccce956d275080f8d66d5b0ab7",
+			"keccak256": "0xb9dac12a7d115089c0fd7539027191e68e4f7556cac938d9adaee37bd5701f5f",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://cc5cbd5157ee0305f5cff46c5259880bbfdd358511338dee4acb7d4f803fc71a",
-				"dweb:/ipfs/QmcDEbs4xjeYE7qXYMN548apwAW2mKgTRCwKpGhHB8jJDA"
+				"bzz-raw://d1eb55ec4005545d1ec65511c1810b6c1099bde832971fc45c6809c17d4cff31",
+				"dweb:/ipfs/Qmd1fD272QT9M9fZbD6yLcvY48CcmiqdfhGjWS1SdbDHYk"
 			]
 		}
 	},

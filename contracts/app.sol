@@ -5,7 +5,8 @@ import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interf
 
 contract DefiChanges {
     address private owner;
-    uint256 private constant loanPercent = 5e17; // represent 0.5 in fixed
+    // uint256 private constant loanPercent = 5e17; // represent 0.5 in fixed
+    uint256 private constant liquidationThreshold = 8e17;
     AggregatorV3Interface internal dataFeed;
 
     struct Account {
@@ -33,7 +34,7 @@ contract DefiChanges {
 
         Account storage account = accounts[msg.sender];
         account.amount += msg.value;
-        account.availableAmountLoan += (msg.value * loanPercent)/1e18;
+        account.availableAmountLoan += (msg.value * liquidationThreshold)/1e18;
         account.timestamp = block.timestamp;
 
         emit CollateralDeposited(msg.sender, msg.value, block.timestamp);
@@ -93,11 +94,15 @@ contract DefiChanges {
         return uint(amount);
     }
 
-    function checkLoanPercentage(uint256 amount) public view returns (uint) {
+    function checkHealthFactor() public view returns (int) {
         Account storage account = accounts[msg.sender];
+        uint256 totalCollateral = account.amount * getEthPrice();
+        int256 healthFactor = int((totalCollateral * liquidationThreshold)/account.amountLoan);
         
-        uint perc = (amount * account.amount) / 100;
-        return perc;
+        int healthFactorFixed = healthFactor / 1e8;
+        return healthFactorFixed;
+
     }
+
 
 }
